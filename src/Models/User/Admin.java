@@ -1,4 +1,4 @@
-package Model.User;
+package Models.User;
 
 public class Admin extends UserAbstraction
 {

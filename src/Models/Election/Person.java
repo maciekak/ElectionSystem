@@ -1,4 +1,4 @@
-package Model.Election;
+package Models.Election;
 
 public class Person
 {

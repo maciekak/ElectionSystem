@@ -1,4 +1,4 @@
-package Model.Election;
+package Models.Election;
 
 import java.util.ArrayList;
 import java.util.List;

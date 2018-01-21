@@ -1,4 +1,4 @@
-package Model.Election;
+package Models.Election;
 
 import java.util.Date;
 import java.util.List;

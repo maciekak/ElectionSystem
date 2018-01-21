@@ -1,4 +1,4 @@
-package Model.Election;
+package Models.Election;
 
 //I am using polish names of administrative units because of there is no equivalent in english
 public enum ElectionType
