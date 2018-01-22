@@ -13,4 +13,20 @@ public class Candidate
         this.voicesCount = 0;
     }
 
+    public Candidate(Person person, Election election, int voicesCount)
+    {
+        this.person = person;
+        this.election = election;
+        this.voicesCount = voicesCount;
+    }
+
+    public int getVoicesCount()
+    {
+        return voicesCount;
+    }
+
+    public void addVoice()
+    {
+        this.voicesCount++;
+    }
 }

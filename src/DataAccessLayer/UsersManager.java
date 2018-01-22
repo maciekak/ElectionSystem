@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UsersManager
 {
-    public UserAbstraction tryLogIn(String login, String password) throws IOException, NotCorrectFileStructure
+    public UserAbstraction tryLogIn(String login, String password) throws IOException, NotCorrectFileStructureException
     {
         try(BufferedReader br = new BufferedReader(new FileReader("Data/Users.txt")))
         {
@@ -22,7 +22,7 @@ public class UsersManager
                 String[] words = line.split(":");
 
                 if(words.length != 3)
-                    throw new NotCorrectFileStructure();
+                    throw new NotCorrectFileStructureException();
 
                 if(words[0].equals(login) && words[1].equals(password))
                 {
@@ -36,7 +36,7 @@ public class UsersManager
         return null;
     }
 
-    public List<Pair<String, String>> getUserElections(User user) throws IOException, NotCorrectFileStructure
+    public Pair<List<Pair<String,String>>, List<String>> getUserElections(User user) throws IOException, NotCorrectFileStructureException
     {
         try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
         {
@@ -44,30 +44,31 @@ public class UsersManager
             {
                 int indexOfUserName = line.indexOf(':');
                 if(indexOfUserName == -1)
-                    throw new NotCorrectFileStructure();
+                    throw new NotCorrectFileStructureException();
 
                 if(line.substring(0, indexOfUserName).equals(user.getLogin()))
                 {
                     String[] elections = line.split(":");
-                    List<Pair<String, String>> electionIdPersonId = new ArrayList<>(elections.length - 1);
+                    Pair<List<Pair<String,String>>, List<String>> electionIdPersonId = new Pair<>(new ArrayList<Pair<String, String>>(), new ArrayList<String>());
+
                     for(int i = 1; i < elections.length; i++)
                     {
                         String[] electionIdAndChoice = elections[i].split(",");
 
                         if(!electionIdAndChoice[0].matches("\\d\\d\\d\\d-\\d\\d-\\d\\d_[a-zA-Z]+\\z"))
-                            throw new NotCorrectFileStructure();
+                            throw new NotCorrectFileStructureException();
 
                         if(electionIdAndChoice.length == 1)
-                            electionIdPersonId.add(new Pair<>(electionIdAndChoice[0], null));
+                            electionIdPersonId.getValue().add(electionIdAndChoice[0]);
                         else if(electionIdAndChoice.length == 2)
                         {
                             if(!electionIdAndChoice[1].matches("[a-zA-Z]+_[a-zA-Z]+\\z"))
-                                throw new NotCorrectFileStructure();
+                                throw new NotCorrectFileStructureException();
 
-                            electionIdPersonId.add(new Pair<>(electionIdAndChoice[0], electionIdAndChoice[1]));
+                            electionIdPersonId.getKey().add(new Pair<>(electionIdAndChoice[0], electionIdAndChoice[1]));
                         }
                         else
-                            throw new NotCorrectFileStructure();
+                            throw new NotCorrectFileStructureException();
                     }
 
                     return electionIdPersonId;
@@ -75,9 +76,5 @@ public class UsersManager
             }
         }
         return null;
-    }
-
-    public class NotCorrectFileStructure extends Exception
-    {
     }
 }

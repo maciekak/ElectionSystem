@@ -1,14 +1,29 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import Controllers.AdminPanelController;
+import Controllers.IMainController;
+import Controllers.LoginController;
+import Controllers.UserPanelController;
+import Models.User.Admin;
+import Models.User.User;
+import Models.User.UserAbstraction;
 
 public class Main {
 
     public static void main(String[] args)
     {
+        LoginController login = new LoginController();
+
+        UserAbstraction user = login.login();
+
+        if(user == null)
+            return;
+
+        IMainController mainController;
+        if(user instanceof Admin)
+            mainController = new AdminPanelController((Admin) user);
+        else
+            mainController = new UserPanelController((User) user);
+
+        mainController.home();
     }
 
 
