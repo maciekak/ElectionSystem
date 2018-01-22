@@ -1,5 +1,8 @@
 package Models.Election;
 
+import sun.java2d.pipe.SpanShapeRenderer;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,5 +45,11 @@ public class Election
     public String getName()
     {
         return "Election on " + date.toString() + " to " + electionType.toString();
+    }
+
+    public String getId()
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date) + "_" + electionType.toString();
     }
 }
