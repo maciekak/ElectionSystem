@@ -44,12 +44,18 @@ public class Election
 
     public String getName()
     {
-        return "Election on " + date.toString() + " to " + electionType.toString();
+        return "Wybory dnia " + date.toString() + " do " + electionType.toString();
     }
 
     public String getId()
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(date) + "_" + electionType.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return obj != null && obj instanceof Election && (obj == this || ((Election) obj).getId().equals(this.getId()));
     }
 }

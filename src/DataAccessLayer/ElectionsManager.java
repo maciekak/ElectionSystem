@@ -33,6 +33,7 @@ public class ElectionsManager
                 ElectionType type = ElectionType.valueOf(titleWords[1]);
 
                 Election election = new Election(date, new ArrayList<>(), type, endedElection);
+
                 for( ; line != null; line = br.readLine())
                 {
                     String[] words = line.split(":");

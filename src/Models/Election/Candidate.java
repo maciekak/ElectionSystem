@@ -29,4 +29,15 @@ public class Candidate
     {
         this.voicesCount++;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return obj != null && obj instanceof Candidate && (obj == this || ((Candidate) obj).getPerson().equals(this.getPerson()));
+    }
+
+    public Person getPerson()
+    {
+        return person;
+    }
 }

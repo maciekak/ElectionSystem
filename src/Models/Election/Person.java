@@ -23,8 +23,16 @@ public class Person
         return lastName;
     }
 
+    public String getId() { return firstName + "_" + lastName; }
+
     public Party getParty()
     {
         return party;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return obj != null && obj instanceof Person && (obj == this || ((Person) obj).getId().equals(this.getId()));
     }
 }
