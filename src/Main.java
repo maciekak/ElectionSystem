@@ -6,10 +6,15 @@ import Models.User.Admin;
 import Models.User.User;
 import Models.User.UserAbstraction;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args)
     {
+
         LoginController login = new LoginController();
 
         UserAbstraction user = login.login();

@@ -7,6 +7,7 @@ import javafx.util.Pair;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UsersManager
@@ -75,6 +76,27 @@ public class UsersManager
         }
         return null;
     }
+
+    public List<String> getAdminElections(String login) throws IOException, NotCorrectFileStructureException
+    {
+        try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
+        {
+            for(String line = br.readLine(); line != null; line = br.readLine())
+            {
+                int indexOfUserName = line.indexOf(':');
+                if(indexOfUserName == -1)
+                    throw new NotCorrectFileStructureException();
+
+                if(line.substring(0, indexOfUserName).equals(login))
+                {
+                    String[] elections = line.split(":");
+                    return new ArrayList<String>(Arrays.asList(elections)).subList(1, elections.length);
+                }
+            }
+        }
+        return null;
+    }
+
 
     public void updateUsersElection(String username, String electionId, String candidateId) throws IOException, NotCorrectFileStructureException
     {

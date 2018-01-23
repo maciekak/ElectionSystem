@@ -5,11 +5,11 @@ import Models.Election.Election;
 import java.util.List;
 import java.util.Scanner;
 
-public class ElectionSelectingView extends SelectionInstructionView
+public class EndingElectionView extends SelectionInstructionView
 {
     private List<Election> availableElections;
 
-    public ElectionSelectingView(List<Election> availableElections)
+    public EndingElectionView(List<Election> availableElections)
     {
         this.availableElections = availableElections;
     }
@@ -23,7 +23,21 @@ public class ElectionSelectingView extends SelectionInstructionView
         if(index == -1)
             return null;
 
+        if(!askConfirmation())
+            return null;
+
         return availableElections.get(index);
+    }
+
+    private boolean askConfirmation()
+    {
+        System.out.println("Jesteś pewny, że chcesz zakończyć te wybory. Tego wyboru nie da się cofnąć.");
+        System.out.println("y - Tak, n - Nie");
+
+        Scanner scanner = new Scanner(System.in);
+        String line = scanner.nextLine();
+
+        return line.length() == 1 && (line.charAt(0) == 'y' || line.charAt(0) == 'Y');
     }
 
     private void showElections()
@@ -41,7 +55,6 @@ public class ElectionSelectingView extends SelectionInstructionView
                 choiceSign = 'A';
                 continue;
             }
-
             choiceSign++;
         }
     }

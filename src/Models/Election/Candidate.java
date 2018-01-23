@@ -1,6 +1,8 @@
 package Models.Election;
 
-public class Candidate
+import java.util.Comparator;
+
+public class Candidate implements Comparable<Candidate>
 {
     private Person person;
     private int voicesCount;
@@ -39,5 +41,20 @@ public class Candidate
     public Person getPerson()
     {
         return person;
+    }
+
+    @Override
+    public int compareTo(Candidate o)
+    {
+        return Integer.compare(voicesCount, o.voicesCount);
+    }
+
+    public class CandidateComparator implements Comparator<Candidate>
+    {
+        @Override
+        public int compare(Candidate o1, Candidate o2)
+        {
+            return Integer.compare(o1.getVotesCount(), o2.getVotesCount());
+        }
     }
 }

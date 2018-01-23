@@ -37,6 +37,11 @@ public class Election
         return ended;
     }
 
+    public void end()
+    {
+        this.ended = true;
+    }
+
     public void setEnded(boolean ended)
     {
         this.ended = ended;

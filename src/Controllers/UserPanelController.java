@@ -63,8 +63,6 @@ public class UserPanelController implements IMainController
 
     private boolean loadResources()
     {
-        loadedResources = true;
-
         UsersManager userManager = new UsersManager();
         Pair<List<Pair<String,String>>, List<String>> pair;
         try
@@ -109,6 +107,9 @@ public class UserPanelController implements IMainController
         }
 
         distributeElections(elections);
+
+        loadedResources = true;
+
         return true;
     }
 
