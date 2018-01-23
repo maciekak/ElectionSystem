@@ -2,9 +2,7 @@ package DataAccessLayer;
 
 import Models.Election.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +38,7 @@ public class ElectionsManager
                     if(words.length != 4)
                         throw new NotCorrectFileStructureException();
 
-                    Candidate candidate = new Candidate(new Person(words[0], words[1], new Party(words[2])), election, Integer.parseInt(words[3]));
+                    Candidate candidate = new Candidate(new Person(words[0], words[1], words[2]), election, Integer.parseInt(words[3]));
 
                     election.getCandidates().add(candidate);
                 }
@@ -50,5 +48,67 @@ public class ElectionsManager
         }
 
         return result;
+    }
+
+    public void updateElections(String electionId, Candidate candidate) throws IOException
+    {
+        FileWriter writer= null;
+
+        try(BufferedReader br = new BufferedReader(new FileReader("Data/Elections/" + electionId + ".txt")))
+        {
+            StringBuilder newContent = new StringBuilder();
+            String line = br.readLine();
+            newContent.append(line).append("\n");
+            for(line = br.readLine(); line != null; line = br.readLine())
+            {
+                String[] words = line.split(":");
+
+                if(words[0].equals(candidate.getPerson().getFirstName()) && words[1].equals(candidate.getPerson().getLastName()))
+                {
+                    newContent.append(words[0]).append(":")
+                            .append(words[1]).append(":")
+                            .append(words[2]).append(":")
+                            .append(candidate.getVotesCount()).append("\n");
+                    continue;
+                }
+
+                newContent.append(line).append("\n");
+            }
+
+            writer = new FileWriter("Data/Elections/" + electionId + ".txt");
+            writer.write(newContent.toString());
+        }
+        finally
+        {
+            if(writer != null)
+                writer.close();
+        }
+    }
+
+    public void updateElectionStatus(Election election) throws IOException
+    {
+        FileWriter writer= null;
+        String electionId = election.getId();
+        try(BufferedReader br = new BufferedReader(new FileReader("Data/Elections/" + electionId + ".txt")))
+        {
+            StringBuilder newContent = new StringBuilder();
+            String line = br.readLine();
+            if(election.isEnded())
+                newContent.append("1");
+            else
+                newContent.append("0");
+            newContent.append("\n");
+
+            for(line = br.readLine(); line != null; line = br.readLine())
+                newContent.append(line).append("\n");
+
+            writer = new FileWriter("Data/Elections/" + electionId + ".txt");
+            writer.write(newContent.toString());
+        }
+        finally
+        {
+            if(writer != null)
+                writer.close();
+        }
     }
 }

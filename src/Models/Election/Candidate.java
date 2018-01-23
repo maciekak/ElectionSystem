@@ -20,12 +20,12 @@ public class Candidate
         this.voicesCount = voicesCount;
     }
 
-    public int getVoicesCount()
+    public int getVotesCount()
     {
         return voicesCount;
     }
 
-    public void addVoice()
+    public void addVote()
     {
         this.voicesCount++;
     }

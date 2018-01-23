@@ -5,9 +5,7 @@ import Models.User.User;
 import Models.User.UserAbstraction;
 import javafx.util.Pair;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +74,63 @@ public class UsersManager
             }
         }
         return null;
+    }
+
+    public void updateUsersElection(String username, String electionId, String candidateId) throws IOException, NotCorrectFileStructureException
+    {
+        FileWriter writer= null;
+        try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
+        {
+            StringBuilder newContent = new StringBuilder();
+            for(String line = br.readLine(); line != null; line = br.readLine())
+            {
+                int indexOfUserName = line.indexOf(':');
+                if(indexOfUserName == -1)
+                    throw new NotCorrectFileStructureException();
+
+                if(!line.substring(0, indexOfUserName).equals(username))
+                {
+                    newContent.append(line).append("\n");
+                    continue;
+                }
+
+                String[] elections = line.split(":");
+
+                newContent.append(line.substring(0, indexOfUserName)).append(":");
+
+                for(int i = 1; i < elections.length; i++)
+                {
+                    String[] words = elections[i].split(",");
+                    if(words[0].equals(electionId))
+                    {
+                        newContent.append(electionId).append(",").append(candidateId);
+
+                        if(elections.length -1 != i)
+                            newContent.append(":");
+
+                        continue;
+                    }
+
+                    newContent.append(words[0]);
+                    if(words.length > 1)
+                    {
+                        newContent.append(",").append(words[1]);
+                    }
+                    if(elections.length -1 != i)
+                        newContent.append(":");
+
+                }
+                newContent.append("\n");
+
+            }
+
+            writer = new FileWriter("Data/UserElections.txt");
+            writer.write(newContent.toString());
+        }
+        finally
+        {
+            if(writer != null)
+                writer.close();
+        }
     }
 }

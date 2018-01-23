@@ -4,9 +4,9 @@ public class Person
 {
     private String firstName;
     private String lastName;
-    private Party party;
+    private String party;
 
-    public Person(String firstName, String lastName, Party party)
+    public Person(String firstName, String lastName, String party)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,7 +25,7 @@ public class Person
 
     public String getId() { return firstName + "_" + lastName; }
 
-    public Party getParty()
+    public String getParty()
     {
         return party;
     }

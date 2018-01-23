@@ -6,10 +6,7 @@ import DataAccessLayer.UsersManager;
 import Models.Election.Candidate;
 import Models.Election.Election;
 import Models.User.User;
-import Views.ElectionSelectingView;
-import Views.ErrorView;
-import Views.UserDecision;
-import Views.UserPanelView;
+import Views.*;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -167,12 +164,54 @@ public class UserPanelController implements IMainController
         ElectionSelectingView selectionView = new ElectionSelectingView(availableElections);
         Election election = selectionView.act();
 
+        if(election == null)
+            return;
 
+        ElectionVotingView votingView = new ElectionVotingView(election.getCandidates());
+        Candidate candidate = votingView.act();
+
+        if(candidate == null)
+            return;
+
+        candidate.addVote();
+
+        availableElections.remove(election);
+        votedElections.replace(election, candidate);
+
+        saveVote(election, candidate);
     }
 
 
     protected void showStatistics()
     {
 
+    }
+
+    private void saveVote(Election election, Candidate candidate)
+    {
+        UsersManager usersManager = new UsersManager();
+        ElectionsManager electionsManager = new ElectionsManager();
+
+        try
+        {
+            usersManager.updateUsersElection(user.getLogin(), election.getId(), candidate.getPerson().getId());
+        }
+        catch (IOException e)
+        {
+            new ErrorView(e).act();
+        }
+        catch (NotCorrectFileStructureException e)
+        {
+            new ErrorView("Internal problem. Files have not correct structure.").act();
+        }
+
+        try
+        {
+            electionsManager.updateElections(election.getId(), candidate);
+        }
+        catch (IOException e)
+        {
+            new ErrorView(e).act();
+        }
     }
 }
