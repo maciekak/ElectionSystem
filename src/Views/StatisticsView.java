@@ -1,8 +1,12 @@
 package Views;
 
+import Models.Election.Candidate;
 import Models.Election.Election;
 import Models.Statistics.Statistics;
 
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class StatisticsView extends SelectionInstructionView
@@ -30,12 +34,35 @@ public class StatisticsView extends SelectionInstructionView
             switch(line.charAt(0))
             {
                 case 'a':
+                    HashMap<String, Double> partiesPercent = statistics.getPartiesPercent();
+                    for(String party : partiesPercent.keySet())
+                    {
+                        DecimalFormat df2 = new DecimalFormat(".##");
+                        System.out.println(party + " -> " + df2.format(partiesPercent.get(party)));
+                    }
                     break;
 
                 case 'b':
+                    HashMap<String, Double> partiesMandats = statistics.getMandatsPercent();
+                    for(String party : partiesMandats.keySet())
+                    {
+                        DecimalFormat df2 = new DecimalFormat(".##");
+                        System.out.println(party + " -> " + df2.format(partiesMandats.get(party)));
+                    }
                     break;
 
                 case 'c':
+                    HashMap<String, List<Candidate>> mandats = statistics.getMandats();
+                    for(String party : mandats.keySet())
+                    {
+                        System.out.println(party + ":");
+
+                        for(int i = 0; i < mandats.get(party).size(); i++)
+                        {
+                            Candidate candidate = mandats.get(party).get(i);
+                            System.out.println("\t" + (i+1) + ") " + candidate.getPerson().getFirstName() + " " + candidate.getPerson().getLastName() + " -> " + candidate.getVotesCount());
+                        }
+                    }
                     break;
 
                 default:

@@ -29,6 +29,9 @@ public class Statistics
 
     public HashMap<String, List<Candidate>> getPartiesCandidates()
     {
+        if(this.partiesCandidates != null)
+            return this.partiesCandidates;
+
         HashMap<String, List<Candidate>> partiesStatistics = new HashMap<>();
 
         for (Candidate candidate : election.getCandidates())
@@ -57,6 +60,9 @@ public class Statistics
 
     public HashMap<String, Double> getPartiesPercent()
     {
+        if(this.partiesPercents != null)
+            return this.partiesPercents;
+
         int allVotes = 0;
         HashMap<String, Double> partiesPercents = new HashMap<>();
         if(partiesCandidates == null)
@@ -83,6 +89,9 @@ public class Statistics
 
     public HashMap<String, Double> getPartiesAboveLimit()
     {
+        if(this.partiesAboveLimit != null)
+            return this.partiesAboveLimit;
+
         Double limit = 5.0;
         HashMap<String, Double> partiesAboveLimit = new HashMap<>();
 
@@ -92,7 +101,7 @@ public class Statistics
         for(String party : partiesPercents.keySet())
         {
             if(partiesPercents.get(party) >= limit)
-                partiesAboveLimit.put(party, limit);
+                partiesAboveLimit.put(party, partiesPercents.get(party));
         }
 
         this.partiesAboveLimit = partiesAboveLimit;
@@ -102,6 +111,9 @@ public class Statistics
 
     public HashMap<String, Double> getMandatsPercent()
     {
+        if(this.mandatsPercent != null)
+            return this.mandatsPercent;
+
         HashMap<String, Double> mandatsPercent = new HashMap<>();
         Double sum = getPercentsSum();
 
@@ -115,8 +127,16 @@ public class Statistics
         return mandatsPercent;
     }
 
+    public HashMap<String, List<Candidate>> getMandats()
+    {
+        return this.mandats;
+    }
+
     public HashMap<String, List<Candidate>> getMandats(int mandatsLimit)
     {
+        if(this.mandats != null)
+            return this.mandats;
+
         HashMap<String, List<Candidate>> mandats = new HashMap<>();
         if(partiesCandidates == null)
             getPartiesCandidates();
@@ -127,9 +147,11 @@ public class Statistics
 
         for(String party : mandatsPercent.keySet())
         {
-            int mandatsCount = (int)(mandatsLimit*mandatsPercent.get(party));
+            int mandatsCount = (int)(mandatsLimit*mandatsPercent.get(party)/100+0.5);
 
-            //TODO chekc what will happend
+            if(mandatsCount > partiesCandidates.get(party).size())
+                mandatsCount = partiesCandidates.get(party).size();
+
             mandats.put(party, new ArrayList<>(partiesCandidates.get(party).subList(0, mandatsCount)));
         }
         this.mandats = mandats;

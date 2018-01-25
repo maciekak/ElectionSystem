@@ -32,7 +32,7 @@ public class ElectionsManager
 
                 Election election = new Election(date, new ArrayList<>(), type, endedElection);
 
-                for( ; line != null; line = br.readLine())
+                for(line = br.readLine(); line != null; line = br.readLine())
                 {
                     String[] words = line.split(":");
                     if(words.length != 4)

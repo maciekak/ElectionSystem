@@ -55,7 +55,7 @@ public class ElectionSelectingView extends SelectionInstructionView
             return -1;
 
         int index = -1;
-        if(line.charAt(0) >= 'a')
+        if(line.charAt(0) < 'a')
         {
             index = 'z' - 'a'; //No +1 cause of q
             index += line.charAt(0) - 'A';
@@ -66,7 +66,6 @@ public class ElectionSelectingView extends SelectionInstructionView
                 index = line.charAt(0) - 'a';
             else
                 index = line.charAt(0) - 'a' - 1;
-
         }
         return index;
     }

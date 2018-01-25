@@ -14,7 +14,6 @@ public class Main {
 
     public static void main(String[] args)
     {
-
         LoginController login = new LoginController();
 
         UserAbstraction user = login.login();
@@ -30,6 +29,4 @@ public class Main {
 
         mainController.home();
     }
-
-
 }

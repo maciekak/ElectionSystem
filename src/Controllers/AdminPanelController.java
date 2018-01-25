@@ -34,7 +34,11 @@ public class AdminPanelController implements IMainController
             AdminDecision decision = adminPanel.act();
 
             if(decision == AdminDecision.GO_END)
+            {
+                GoodbyeView goodbyeView = new GoodbyeView();
+                goodbyeView.act();
                 return;
+            }
 
             if(!loadedResources && !loadResources())
                 return;
@@ -122,7 +126,7 @@ public class AdminPanelController implements IMainController
             return;
 
         Statistics statistics = new Statistics(election);
-
+        statistics.getMandats(20);
         StatisticsView statisticsView = new StatisticsView(statistics);
         statisticsView.act();
     }

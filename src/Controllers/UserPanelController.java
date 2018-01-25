@@ -45,7 +45,11 @@ public class UserPanelController implements IMainController
             UserDecision decision = userPanel.act();
 
             if(decision == UserDecision.GO_END)
+            {
+                GoodbyeView goodbyeView = new GoodbyeView();
+                goodbyeView.act();
                 return;
+            }
 
             if(!loadedResources && !loadResources())
                 return;
