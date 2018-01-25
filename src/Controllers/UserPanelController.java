@@ -198,6 +198,7 @@ public class UserPanelController implements IMainController
             return;
 
         Statistics statistics = new Statistics(election);
+        statistics.getMandats(30);
 
         StatisticsView statisticsView = new StatisticsView(statistics);
         statisticsView.act();

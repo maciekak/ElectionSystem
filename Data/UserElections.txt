@@ -1,4 +1,1 @@
-admin:2016-03-03_SOLECTWO
-maciek:2016-03-03_SOLECTWO,Zuzanna_Sobczak
-abcd:2016-03-03_SOLECTWO,Adam_Nowak
-ala123:2016-03-03_SOLECTWO,Anna_G?rska
+﻿admin:2016-03-03_SOLECTWO

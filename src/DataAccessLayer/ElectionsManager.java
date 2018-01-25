@@ -31,8 +31,8 @@ public class ElectionsManager
                 ElectionType type = ElectionType.valueOf(titleWords[1]);
 
                 Election election = new Election(date, new ArrayList<>(), type, endedElection);
-
-                for(line = br.readLine(); line != null; line = br.readLine())
+                line = br.readLine();
+                for(; line != null && !line.equals(""); line = br.readLine())
                 {
                     String[] words = line.split(":");
                     if(words.length != 4)
@@ -59,7 +59,7 @@ public class ElectionsManager
             StringBuilder newContent = new StringBuilder();
             String line = br.readLine();
             newContent.append(line).append("\n");
-            for(line = br.readLine(); line != null; line = br.readLine())
+            for(line = br.readLine(); line != null && !line.equals(""); line = br.readLine())
             {
                 String[] words = line.split(":");
 
@@ -99,7 +99,7 @@ public class ElectionsManager
                 newContent.append("0");
             newContent.append("\n");
 
-            for(line = br.readLine(); line != null; line = br.readLine())
+            for(line = br.readLine(); line != null && !line.equals(""); line = br.readLine())
                 newContent.append(line).append("\n");
 
             writer = new FileWriter("Data/Elections/" + electionId + ".txt");

@@ -16,7 +16,7 @@ public class UsersManager
     {
         try(BufferedReader br = new BufferedReader(new FileReader("Data/Users.txt")))
         {
-            for(String line = br.readLine(); line != null; line = br.readLine())
+            for(String line = br.readLine(); line != null && !line.equals(""); line = br.readLine())
             {
                 String[] words = line.split(":");
 
@@ -37,7 +37,7 @@ public class UsersManager
 
     public Pair<List<Pair<String,String>>, List<String>> getUserElections(User user) throws IOException, NotCorrectFileStructureException
     {
-        try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
+        try(BufferedReader br = new BufferedReader(new FileReader("Data/a.txt")))
         {
             for(String line = br.readLine(); line != null; line = br.readLine())
             {
@@ -79,9 +79,9 @@ public class UsersManager
 
     public List<String> getAdminElections(String login) throws IOException, NotCorrectFileStructureException
     {
-        try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("Data/UserElections.txt"), "UTF-8")))
         {
-            for(String line = br.readLine(); line != null; line = br.readLine())
+            for(String line = br.readLine(); line != null && !line.equals(""); line = br.readLine())
             {
                 int indexOfUserName = line.indexOf(':');
                 if(indexOfUserName == -1)
@@ -104,7 +104,7 @@ public class UsersManager
         try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
         {
             StringBuilder newContent = new StringBuilder();
-            for(String line = br.readLine(); line != null; line = br.readLine())
+            for(String line = br.readLine(); line != null && !line.equals(""); line = br.readLine())
             {
                 int indexOfUserName = line.indexOf(':');
                 if(indexOfUserName == -1)
