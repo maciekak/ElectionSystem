@@ -1,7 +1,7 @@
-0
+1
 Adam:Nowak:PIS:120
 Jan:Kowalski:PO:100
-Anna:Górska:PO:230
+Anna:Gï¿½rska:PO:230
 Oskar:Jasinski:PIS:12
 Kinga:Rybak:SLD:190
 Jerzy:Maciak:PO:270
@@ -16,7 +16,7 @@ Maciej:Zalewski:PO:12
 Karol:Nowak:PSL:99
 Rafal:Kozlowski:PIS:87
 Zuzanna:Sobczak:PO:290
-Julia:Kaczor:PO:123
+Julia:Kaczor:PO:124
 
 
 
