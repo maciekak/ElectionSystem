@@ -5,6 +5,7 @@ import DataAccessLayer.NotCorrectFileStructureException;
 import DataAccessLayer.UsersManager;
 import Models.Election.Candidate;
 import Models.Election.Election;
+import Models.Statistics.Statistics;
 import Models.User.User;
 import Views.*;
 import javafx.util.Pair;
@@ -185,7 +186,17 @@ public class UserPanelController implements IMainController
 
     protected void showStatistics()
     {
+        ElectionSelectingView selectionView = new ElectionSelectingView(new ArrayList<>(doneElections.keySet()));
+        Election election = selectionView.act();
 
+        if(election == null)
+            return;
+
+        Statistics statistics = new Statistics(election);
+        statistics.getMandats(30);
+
+        StatisticsView statisticsView = new StatisticsView(statistics);
+        statisticsView.act();
     }
 
     private void saveVote(Election election, Candidate candidate)
