@@ -4,6 +4,7 @@ import DataAccessLayer.ElectionsManager;
 import DataAccessLayer.NotCorrectFileStructureException;
 import DataAccessLayer.UsersManager;
 import Models.Election.Election;
+import Models.Statistics.Statistics;
 import Models.User.Admin;
 import Views.*;
 import javafx.util.Pair;
@@ -114,7 +115,16 @@ public class AdminPanelController implements IMainController
 
     protected void showStatistics()
     {
+        ElectionSelectingView selectionView = new ElectionSelectingView(elections);
+        Election election = selectionView.act();
 
+        if(election == null)
+            return;
+
+        Statistics statistics = new Statistics(election);
+
+        StatisticsView statisticsView = new StatisticsView(statistics);
+        statisticsView.act();
     }
 
     private void saveElection(Election election)
