@@ -1,0 +1,12 @@
+1
+Adam:Nowak:PIS:20
+Adrian:Nowak:PO:3
+Anna:Nowak:PSL:2
+Aneta:Nowak:PSL:15
+Anita:Nowak:PIS:5
+Andrzej:Nowak:PO:7
+Adam:Kowalski:PO:13
+Adrian:Kowalski:PSL:15
+Anna:Kowalska:PO:10
+Aneta:Kowalska:PIS:4
+Anita:Kowalska:PIS:7

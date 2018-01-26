@@ -106,8 +106,8 @@ public class AdminPanelController implements IMainController
 
             notEndedElections.add(election);
         }
-        ElectionSelectingView selectionView = new ElectionSelectingView(notEndedElections);
-        Election election = selectionView.act();
+        EndingElectionView endingElectionView = new EndingElectionView(notEndedElections);
+        Election election = endingElectionView.act();
 
         if(election == null)
             return;

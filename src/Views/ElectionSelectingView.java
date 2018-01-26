@@ -20,7 +20,7 @@ public class ElectionSelectingView extends SelectionInstructionView
         showElections();
 
         int index = getChoice();
-        if(index == -1)
+        if(index == -1 || availableElections.size() <= index)
             return null;
 
         return availableElections.get(index);

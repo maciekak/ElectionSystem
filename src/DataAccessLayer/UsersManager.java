@@ -39,7 +39,7 @@ public class UsersManager
     {
         try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
         {
-            for(String line = br.readLine(); line != null; )
+            for(String line = br.readLine(); line != null; line = br.readLine())
             {
                 int indexOfUserName = line.indexOf(':');
                 if(indexOfUserName == -1)
@@ -72,8 +72,6 @@ public class UsersManager
 
                     return electionIdPersonId;
                 }
-                line = br.readLine();
-                        int a = 3;
             }
         }
         return null;

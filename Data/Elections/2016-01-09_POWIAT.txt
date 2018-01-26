@@ -1,0 +1,17 @@
+0
+Adam:Nowak:PSL:50
+Adrian:Nowak:PO:39
+Anna:Nowak:SLD:7
+Anita:Nowak:PIS:3
+Aneta:Nowak:PIS:5
+Anita:Kocot:PIS:3
+Aneta:Kocot:PIS:5
+Andrzej:Kocot:PO:11
+Anotoni:Kocot:PSL:3
+Anna:Marek:SLD:73
+Anita:Marek:PIS:3
+Aneta:Marek:PIS:11
+Adrian:Ligas:PO:38
+Anna:Ligas:SLD:17
+Andrzej:Ligas:PO:11
+Anotoni:Ligas:SLD:31

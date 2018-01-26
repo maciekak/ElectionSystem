@@ -1,0 +1,5 @@
+1
+Adam:Nowak:PO:20
+Adrian:Nowak:PIS:71
+Anna:Nowak:SLD:6
+Aneta:Nowak:PSL:3

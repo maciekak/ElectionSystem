@@ -21,7 +21,7 @@ public class ElectionVotingView extends SelectionInstructionView
         showCandidates();
 
         int index = getChoice();
-        if(index == -1)
+        if(index == -1 || index >= candidates.size())
             return null;
 
         if(!askConfirmation())
