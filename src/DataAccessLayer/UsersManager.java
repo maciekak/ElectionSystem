@@ -39,7 +39,7 @@ public class UsersManager
     {
         try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
         {
-            for(String line = br.readLine(); line != null; line = br.readLine())
+            for(String line = br.readLine(); line != null; )
             {
                 int indexOfUserName = line.indexOf(':');
                 if(indexOfUserName == -1)
@@ -72,6 +72,8 @@ public class UsersManager
 
                     return electionIdPersonId;
                 }
+                line = br.readLine();
+                        int a = 3;
             }
         }
         return null;
@@ -173,5 +175,64 @@ public class UsersManager
             }
         }
         return false;
+    }
+
+    public boolean tryAddUserToElection(String user, String electionId) throws IOException, NotCorrectFileStructureException
+    {
+        FileWriter writer= null;
+        try(BufferedReader br = new BufferedReader(new FileReader("Data/UserElections.txt")))
+        {
+            boolean foundUser = false;
+            StringBuilder newContent = new StringBuilder();
+            for(String line = br.readLine(); line != null && !line.equals(""); line = br.readLine())
+            {
+                int indexOfUserName = line.indexOf(':');
+                if(indexOfUserName == -1)
+                    throw new NotCorrectFileStructureException();
+
+                if(!line.substring(0, indexOfUserName).equals(user))
+                {
+                    newContent.append(line).append("\n");
+                    continue;
+                }
+
+                foundUser = true;
+
+                String[] elections = line.split(":");
+
+                newContent.append(line.substring(0, indexOfUserName)).append(":");
+
+                for(int i = 1; i < elections.length; i++)
+                {
+                    String[] words = elections[i].split(",");
+
+                    if(words[0].equals(electionId))
+                        return false;
+
+                    newContent.append(words[0]);
+                    if(words.length > 1)
+                    {
+                        newContent.append(",").append(words[1]);
+                    }
+
+                    newContent.append(":");
+                }
+                newContent.append(electionId);
+                newContent.append("\n");
+            }
+            if(!foundUser)
+            {
+                newContent.append(user).append(":").append(electionId).append("\n");
+            }
+
+            writer = new FileWriter("Data/UserElections.txt");
+            writer.write(newContent.toString());
+        }
+        finally
+        {
+            if(writer != null)
+                writer.close();
+        }
+        return true;
     }
 }

@@ -5,10 +5,10 @@ public class AddingUserToElectionResultView
 
     public void act(boolean isCorrectUser, boolean isCorrectElection, boolean correctUserAddedToElection)
     {
-        if(isCorrectUser)
+        if(!isCorrectUser)
             System.out.println("Podano nieprawidlowa nazwe uzytkownika.");
 
-        if(isCorrectElection)
+        if(!isCorrectElection)
             System.out.println("Podano nieprawidlowa nazwe wyborow.");
 
         if(!correctUserAddedToElection)

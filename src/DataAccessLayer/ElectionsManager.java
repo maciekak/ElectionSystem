@@ -111,4 +111,27 @@ public class ElectionsManager
                 writer.close();
         }
     }
+
+    public boolean checkIfElectionExists(String electionId) throws IOException
+    {
+        File file = new File("Data/Elections/" + electionId + ".txt");
+        if(!file.exists() || file.isDirectory())
+            return false;
+
+        try(BufferedReader br = new BufferedReader(new FileReader(file)))
+        {
+            String line = br.readLine();
+
+            if(!line.equals("0") && !line.equals("1"))
+                return false;
+
+            for(line = br.readLine(); line != null && !line.equals(""); line = br.readLine())
+            {
+                if(line.split(":").length != 4)
+                    return false;
+            }
+        }
+
+        return true;
+    }
 }

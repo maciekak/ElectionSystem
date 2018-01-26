@@ -2,3 +2,4 @@ maciek:2016-03-03_SOLECTWO,Julia_Kaczor
 abcd:2016-03-03_SOLECTWO,Adam_Nowak
 ala123:2016-03-03_SOLECTWO,Anna_G�rska
 admin:2016-03-03_SOLECTWO
+jkl:2016-03-03_SOLECTWO

@@ -140,13 +140,43 @@ public class AdminPanelController implements IMainController
         ElectionsManager electionsManager = new ElectionsManager();
         UsersManager usersManager = new UsersManager();
 
-        boolean isCorrectUser = usersManager.checkIfUserExists(userElectionId.getKey());
-        boolean isCorrectElection = electionsManager.checkIfElectionExists(userElectionId.getValue());
+        boolean isCorrectUser = false;
+        boolean isCorrectElection = false;
+        try
+        {
+            isCorrectUser = usersManager.checkIfUserExists(userElectionId.getKey());
+            isCorrectElection = electionsManager.checkIfElectionExists(userElectionId.getValue());
+        }
+        catch (NotCorrectFileStructureException e)
+        {
+            new ErrorView("Internal problem. Files have not correct structure.").act();
+            return;
+        }
+        catch (IOException e)
+        {
+            new ErrorView(e).act();
+            return;
+        }
 
         AddingUserToElectionResultView resultView = new AddingUserToElectionResultView();
 
         if(isCorrectUser && isCorrectElection)
-            resultView.act(isCorrectUser, isCorrectElection, usersManager.tryAddUserToElection(userElectionId.getKey(), userElectionId.getValue()));
+        {
+            try
+            {
+                resultView.act(isCorrectUser, isCorrectElection, usersManager.tryAddUserToElection(userElectionId.getKey(), userElectionId.getValue()));
+            }
+            catch (IOException e)
+            {
+                new ErrorView("Internal problem. Files have not correct structure.").act();
+                return;
+            }
+            catch (NotCorrectFileStructureException e)
+            {
+                new ErrorView(e).act();
+                return;
+            }
+        }
         else
             resultView.act(isCorrectUser, isCorrectElection, false);
     }

@@ -2,3 +2,4 @@ admin:admin1:1
 maciek:maciek1:0
 abcd:12345678:0
 ala123:ala123:0
+jkl:jkl:0
