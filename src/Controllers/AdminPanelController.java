@@ -48,6 +48,10 @@ public class AdminPanelController implements IMainController
                 case SHOW_STATISTICS:
                     showStatistics();
                     break;
+
+                case ADD_USER_TO_ELECTION:
+                    addUserToElection();
+                    break;
             }
         }
     }
@@ -126,6 +130,25 @@ public class AdminPanelController implements IMainController
         statistics.getMandats(20);
         StatisticsView statisticsView = new StatisticsView(statistics);
         statisticsView.act();
+    }
+
+    protected void addUserToElection()
+    {
+        AddingUserToElectionView userToElectionView = new AddingUserToElectionView();
+        Pair<String,String> userElectionId = userToElectionView.act();
+
+        ElectionsManager electionsManager = new ElectionsManager();
+        UsersManager usersManager = new UsersManager();
+
+        boolean isCorrectUser = usersManager.checkIfUserExists(userElectionId.getKey());
+        boolean isCorrectElection = electionsManager.checkIfElectionExists(userElectionId.getValue());
+
+        AddingUserToElectionResultView resultView = new AddingUserToElectionResultView();
+
+        if(isCorrectUser && isCorrectElection)
+            resultView.act(isCorrectUser, isCorrectElection, usersManager.tryAddUserToElection(userElectionId.getKey(), userElectionId.getValue()));
+        else
+            resultView.act(isCorrectUser, isCorrectElection, false);
     }
 
     private void saveElection(Election election)

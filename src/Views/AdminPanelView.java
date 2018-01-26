@@ -23,6 +23,9 @@ public class AdminPanelView extends SelectionInstructionView
             case 'b':
                 return AdminDecision.SHOW_STATISTICS;
 
+            case 'c':
+                return AdminDecision.ADD_USER_TO_ELECTION;
+
             default:
                 return AdminDecision.GO_END;
         }
@@ -32,5 +35,6 @@ public class AdminPanelView extends SelectionInstructionView
     {
         System.out.println("a - Zakończ wybory.");
         System.out.println("b - Zobacz statystyki w wyborach");
+        System.out.println("c - Dodaj uzytkownika do wyborow");
     }
 }

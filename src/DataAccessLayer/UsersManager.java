@@ -155,4 +155,23 @@ public class UsersManager
                 writer.close();
         }
     }
+
+    public boolean checkIfUserExists(String user) throws NotCorrectFileStructureException, IOException
+    {
+        try(BufferedReader br = new BufferedReader(new FileReader("Data/Users.txt")))
+        {
+            for(String line = br.readLine(); line != null; line = br.readLine())
+            {
+                int indexOfUserName = line.indexOf(':');
+                if(indexOfUserName == -1)
+                    throw new NotCorrectFileStructureException();
+
+                if(line.substring(0, indexOfUserName).equals(user))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
